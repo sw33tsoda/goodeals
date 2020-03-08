@@ -147,7 +147,7 @@
 		<p id="theProduct_desc">{{$thisProduct->desc}}</p>
 		<br>
 		<div id="theProduct_btn_group">
-			<a href="{{route('cart_addToCart',['product_id'=>$thisProduct->id])}}" class="theProduct_btn">Thêm vào giỏ</a>
+			<a href="#" onclick="addToCart({{$thisProduct->id}})" class="theProduct_btn">Thêm vào giỏ</a>
 		</div>
 		<br>
 		<p id="theProduct_date">{{$thisProduct->created_at}}</p>
@@ -217,5 +217,20 @@
 		@endif
 	</h4>
 </div>
+
+<script>
+	function addToCart(id) {
+		$.ajax({
+			url:"{{route('cart_addToCart',['product_id'=>'_blank'])}}",
+			method:"GET",
+			data: {
+				product_id:id,
+			},
+			success:function(msg){
+				alert(msg);
+			},
+		});
+	}
+</script>
 
 @endsection

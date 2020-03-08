@@ -86,6 +86,7 @@ Route::group(['prefix'=>'user'],function(){
 	Route::get('/p/','User\PaymentController@pay')->name('pay');
 	Route::get('/payment/','User\PaymentController@pay_view')->name('pay_view');
 	Route::get('/your-orders/','User\OrdersController@orders_view')->name('yourOrders_view');
+	Route::get('/recharge/','User\PaymentController@recharge_view')->name('recharge_view');
 	Route::get('/search/','User\InterfaceController@search')->name('search');
 });
 

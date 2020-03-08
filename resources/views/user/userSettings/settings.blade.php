@@ -51,7 +51,30 @@
 </div>
 	<h5 id="store_title">TÀI KHOẢN</h5>
 	<hr>
-	<a href="{{route('setDefault')}}">Đặt tài khoản về lại mặc định</a>
+	<a href="#" data-toggle="modal" data-target="#setDefault">Đặt tài khoản về lại mặc định</a>
+	<div class="modal" id="setDefault">
+	  <div class="modal-dialog modal-sm">
+	    <div class="modal-content modal-custom">
+	      <!-- Modal Header -->
+	      <div class="modal-header" style="border:0">
+	      	<p>Bạn có chắc chắn muốn đặt tài khoản về lại mặc định ?</p>
+	      </div>
+	      <!-- Modal body -->
+	      <div class="modal-body modal-body-custom">
+	      		<a href="{{route('setDefault')}}" class="btn btn-custom">
+				  CÓ
+				</a>
+		        <a href="#" class="btn btn-custom" data-dismiss="modal">
+				  KHÔNG
+				</a>
+	      </div>
+	      <!-- Modal footer -->
+	      <div class="modal-footer" style="border:0">
+	        <button type="button" class="btn btn-custom" data-dismiss="modal">Đóng</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	<small id="emailHelp" class="form-text text-muted">Toàn bộ sản phẩm bạn đã thêm vào giỏ hàng , các bình luận và đánh giá của bạn từ trước đến nay sẽ bị xóa.</small>
 	<br>
 	<a href="">Xóa tài khoản này</a>

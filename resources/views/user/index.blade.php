@@ -106,6 +106,9 @@
 					      </div>
 					      <!-- Modal body -->
 					      <div class="modal-body modal-body-custom">
+					      		<a href="{{route('recharge_view')}}" class="btn btn-custom">
+								  NẠP TIỀN
+								</a>
 					      		<a href="{{route('yourOrders_view')}}" class="btn btn-custom">
 								  TRẠNG THÁI GIAO HÀNG
 								</a>
@@ -121,8 +124,7 @@
 					      </div>
 					      <!-- Modal footer -->
 					      <div class="modal-footer" style="border:0">
-					      	<a href="#">Quên mật khẩu ?</a>
-					        <button type="button" class="btn btn-custom" data-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-custom" data-dismiss="modal">Đóng</button>
 					      </div>
 					    </div>
 					  </div>
@@ -180,6 +182,7 @@
 		@yield('yourCart')
 		@yield('payment')
 		@yield('yourOrders')
+		@yield('recharge')
 	</div>
 </body>
 

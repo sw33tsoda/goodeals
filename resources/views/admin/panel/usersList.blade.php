@@ -12,6 +12,7 @@
     <tr>
       <th class="text-center" scope="col">Mã</th>
       <th class="text-center" scope="col">Tên người dùng</th>
+      <th class="text-center" scope="col">Tiền trong tài khoản</th>
       <th class="text-center" scope="col">Vai trò</th>
       <th class="text-center" scope="col">Mật khẩu</th>
       <th class="text-center" scope="col">Địa chỉ Email</th>
@@ -23,6 +24,7 @@
     <tr>
       <td>{{$show->id}}</td>
       <td>{{$show->name}}</td>
+      <td>{{number_format($show->balance)}} VNĐ</td>
       <td>{{$show->role}}</td>
       <td>Riêng tư</td>
       <td>{{$show->email}}</td>

@@ -57,4 +57,8 @@ class PaymentController extends Controller
     public function pay_view(Request $request) {
     	return view('user.payment',['status'=>$request->status]);
     }
+
+    public function recharge_view() {
+        return view('user.recharge');
+    }
 }

@@ -15,8 +15,9 @@ class CartController extends Controller
 
     public function addToCart(Request $request) {
     	$data = array("product_id"=>$request->product_id,"user_id"=>Auth::user()->id);
-    	DB::table('cart')->insert($data);
-    	return redirect()->back();
+    	$addToCart = DB::table('cart')->insert($data);
+        $message = $addToCart == 1 ? "Thêm vào giỏ thành công" : "Thêm vào giỏ thất bại";
+        return $message;
     }
 
     public function getCart(Request $request) {
@@ -28,7 +29,6 @@ class CartController extends Controller
     		$pay+=$cart_->price;
     	}
     	$discountByPromo = $pay * ((100-parent::getPromo())/100);
-    	//Giá-tiền x [(100 –  %-giảm-giá)/100]
     	return view('user.cart.cart')->with('getCart',$cart)->with('pay',$pay)->with('promo',parent::getPromo())->with('totalpay',$discountByPromo);
     }
 
