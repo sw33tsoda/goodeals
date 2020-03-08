@@ -13,8 +13,14 @@ class Controller extends BaseController
 
     // Giảm giá
     private $promo = 50;
+    // Đuôi file hợp lệ
+    private $legitExtension = array('jpg','png','gif','jpeg');
 
     protected function getPromo() {
     	return $this->promo;
+    }
+
+    protected function getLegitExtension() {
+    	return $this->legitExtension;
     }
 }

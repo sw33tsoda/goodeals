@@ -46,8 +46,6 @@ class PostsController extends Controller
      */
     public function store(PostsPanelRequest $request)
     {
-        // 1. Nếu có file , nhưng định dạng lạ thì thông báo lỗi "Định dạng lạ"
-        // 2. Nếu có file , nhưng đúng định dạng thì thông báo "Đăng ký thành công"
 
         $arrayWithExcludes = array(
             'user_id' => Auth::user()->id,
@@ -58,9 +56,7 @@ class PostsController extends Controller
         $enableMessage = true;
         if (Input::has('image'))
         {
-            $thisLegit = array(
-                'jpg','png',
-            );
+            $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1)
             {
                 $fileName = uniqid().'.'.Input::file('image')->getClientOriginalExtension();
@@ -99,11 +95,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) // Truyền Var từ Controller qua redirect->route->view
+    public function show($id)
     {
-        Session::get('enableMessage');
-        Session::get('message');
-        Session::get('alert');
+        
     }
 
     /**
@@ -137,9 +131,7 @@ class PostsController extends Controller
         $enableMessage = true;
         if (Input::has('image')) 
         {
-            $thisLegit = array(
-                'jpg','png', // Định dạng cho phép đăng tải
-            );
+            $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1) // Nếu có ảnh và đúng định dạng
             {
                 $fileName = uniqid().'.'.Input::file('image')->getClientOriginalExtension();

@@ -63,9 +63,7 @@ class ProductsController extends Controller
         $enableMessage = true;
         if (Input::has('image'))
         {
-            $thisLegit = array(
-                'jpg','png',
-            );
+            $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1)
             {
                 $fileName = uniqid().'.'.Input::file('image')->getClientOriginalExtension();
@@ -106,9 +104,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        // Session::get('enableMessage');
-        // Session::get('message');
-        // Session::get('alert');
+        
     }
 
     /**
@@ -141,9 +137,7 @@ class ProductsController extends Controller
         $enableMessage = true;
         if (Input::has('image')) 
         {
-            $thisLegit = array(
-                'jpg','png',
-            );
+            $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1)
             {
                 $fileName = uniqid().'.'.Input::file('image')->getClientOriginalExtension();

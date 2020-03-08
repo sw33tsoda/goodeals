@@ -53,9 +53,7 @@ class UsersController extends Controller
         );
         $enableMessage = true;
         if (Input::has('avatar')) {
-            $thisLegit = array(
-                'jpg','png',
-            );
+            $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('avatar')->getClientOriginalExtension(),$thisLegit) == 1) {
                 $fileName = uniqid().'.'.Input::file('avatar')->getClientOriginalExtension();
                 $fileDir = storage_path().'/uploads/avatar_images/';
@@ -93,9 +91,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        // Session::get('enableMessage');
-        // Session::get('message');
-        // Session::get('alert');
+
     }
 
     /**
@@ -124,9 +120,7 @@ class UsersController extends Controller
         );
         $enableMessage = true;
         if (Input::has('avatar')) {
-            $thisLegit = array(
-                'jpg','png',
-            );
+            $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('avatar')->getClientOriginalExtension(),$thisLegit) == 1) {
                 $fileName = uniqid().'.'.Input::file('avatar')->getClientOriginalExtension();
                 $fileDir = storage_path().'/uploads/avatar_images/';
