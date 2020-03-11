@@ -1,8 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,300,500);
 * {font-family: "Roboto", sans-serif;}
 body {
-	background:#421C52;
+	background:#421c52;
 	height: 100vh;
+}
+
+#content {
+	margin-top:25px;
 }
 
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
@@ -17,7 +21,7 @@ body {
 }
 
 .checked {
-		color: orange;
+	color: orange;
 }
 
 
@@ -136,10 +140,6 @@ body {
 	background-image: linear-gradient(45deg, #50325c 25%, #421c52 25%, #421c52 50%, #50325c 50%, #50325c 75%, #421c52 75%, #421c52 100%);
 	background-size: 56.57px 56.57px;
 	color: white;
-}
-
-#content {
-	margin-top: 25px;
 }
 
 #content-title {

@@ -15,6 +15,7 @@ use DB;
 use Auth;
 use Carbon\Carbon;
 use App\Http\Requests\ReviewsRequest;
+use App\Order;
 
 class InterfaceController extends Controller
 {

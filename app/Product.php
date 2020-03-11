@@ -13,11 +13,11 @@ class Product extends Model
     {
     	return $this->hasMany(Review::class);
     }
+
     public function categories()
     {
-    	return $this->hasMany(ProductCategory::class);
+    	return $this->belongsTo('App\ProductCategory','platform_id');
     }
-
 
     public function orders()
     {

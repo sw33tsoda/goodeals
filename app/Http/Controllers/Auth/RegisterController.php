@@ -31,7 +31,7 @@ class RegisterController extends Controller
      */
     protected function redirectTo() 
     {
-        return (Auth::user()->role == 'user') ? '/user/index' : '404';
+        return '/user/index';
     }
 
     /**

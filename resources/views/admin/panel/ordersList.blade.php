@@ -21,7 +21,7 @@
 		        <tr class="orders_{{$o->id}}">
 		            <td class="text-center">{{$o->id}}</td>
 		            <td class="text-center">{{$o->users->name}}</td>
-		            <td class="text-center">{{$o->products->name}}</td>
+		            <td class="text-center">{{$o->products->id}}</td>
 		            <td class="text-center">{{number_format($o->order_price)}} VNĐ</td>
 		            <td class="text-center">
 		            	<input name="product_key" type="input" class="form-control orders_product_key_{{$o->id}}">

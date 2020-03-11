@@ -106,15 +106,16 @@
 </style>
 
 <h1 id="content-title">THÔNG BÁO</h1>
-<h5 id="post-tab">MỚI CẬP NHẬT</h5>
-
+<br>
 <div class="categories">
 	<a class="post-categories" href="{{route('post_view')}}">Tất cả</a>
 	@foreach ($getCategories as $show)
 		<a class="post-categories" href="{{route('post_category',['id'=>$show->id])}}">{{$show->category_name}}</a>
 	@endforeach
 </div>
+<h5 id="post-tab">MỚI CẬP NHẬT</h5>
 <center><p id="post-tab">@if (count($getPosts) == 0) {{"Không có bài viết."}} @endif</p></center>
+	<div style="padding: 15px">
 	@foreach ($getPosts as $show)
 	<div class="post row">
 		<div class="col-lg-4 post-left">
@@ -145,8 +146,8 @@
 				@endif
 			</small>
 		</div>
-  		
     </div>
 	@endforeach
+	</div>
 </div>
 @endsection
