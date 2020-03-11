@@ -22,8 +22,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $usersList = User::orderBy('created_at','desc')->paginate(10);
         return view('admin.panel.usersList')->with('usersList',$usersList);
     }
@@ -33,8 +32,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('admin.panel.addUsers');
     }
 
@@ -45,8 +43,7 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(UsersPanelRequest $request)
-    {
+    public function store(UsersPanelRequest $request) {
         $arrayWithExcludes = array(
             'avatar' => 'to_be_uploaded',
             'password' => Hash::make($request->password),
@@ -62,14 +59,12 @@ class UsersController extends Controller
                 $arrayFinal = array_merge($arrayWithExcludes,$thisImage);
                 $message = "Đã thêm.";
                 $alert = "success";
-            } 
-            else {
+            } else {
                 $arrayFinal = $arrayWithExcludes;
                 $message = "Sai định dạng cho phép , nên không thể thêm ảnh đại diện";
                 $alert = "warning";
             }
-        }
-        else {
+        } else {
             $arrayFinal = $arrayWithExcludes;
             $message = "Đã thêm.";
             $alert = "success";
@@ -89,8 +84,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
 
     }
 
@@ -100,8 +94,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $userInfo = DB::table('users')->find($id);
         return view('admin.panel.editUsers')->with('userInfo',$userInfo);
     }
@@ -113,8 +106,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UsersPanelRequest $request, $id)
-    {
+    public function update(UsersPanelRequest $request, $id) {
         $arrayWithExcludes = array(
             'password' => Hash::make($request->password),
         );
@@ -129,14 +121,12 @@ class UsersController extends Controller
                 $arrayFinal = array_merge($arrayWithExcludes,$thisImage); 
                 $message = "Đã sửa.";
                 $alert = "success";
-            } 
-            else {
+            } else {
                 $arrayFinal = $arrayWithExcludes;
                 $message = "Sai định dạng cho phép , nên không thể sửa ảnh đại diện";
                 $alert = "warning";
             }
-        }
-        else {
+        } else {
             $arrayFinal = $arrayWithExcludes;
             $message = "Đã sửa.";
             $alert = "success";
@@ -156,8 +146,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $enableMessage = true;
         try {
             if (is_numeric($id)) {
@@ -179,9 +168,5 @@ class UsersController extends Controller
             ->with('enableMessage',$enableMessage)
             ->with('message',$message)
             ->with('alert',$alert);
-    }
-
-    public function test(Request $request) {
-        
     }
 }

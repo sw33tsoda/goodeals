@@ -13,15 +13,13 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Requests\ProductsPanelRequest;
 use App\ProductCategory;
 
-class ProductsController extends Controller
-{
+class ProductsController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $productsList = DB::table('products')
         ->join('product_categories','product_categories.id','=','products.platform_id')
         ->select('products.*','platform_name')
@@ -55,17 +53,14 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductsPanelRequest $request)
-    {
+    public function store(ProductsPanelRequest $request) {
         $arrayWithExcludes = array(
             'image' => 'to_be_uploaded',
         );
         $enableMessage = true;
-        if (Input::has('image'))
-        {
+        if (Input::has('image')) {
             $thisLegit = parent::getLegitExtension();
-            if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1)
-            {
+            if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1) {
                 $fileName = uniqid().'.'.Input::file('image')->getClientOriginalExtension();
                 $fileDir = storage_path().'/uploads/product_images/';
                 $moveFile = Input::file('image')->move($fileDir,$fileName);
@@ -73,16 +68,12 @@ class ProductsController extends Controller
                 $arrayFinal = array_merge($arrayWithExcludes,$thisImage);
                 $message = "Đã thêm.";
                 $alert = "success";
-            } 
-            else 
-            {
+            } else {
                 $arrayFinal = $arrayWithExcludes;
                 $message = "Sai định dạng cho phép , nên chỉ thêm được thông tin";
                 $alert = "warning";
             }
-        }
-        else
-        {
+        } else {
             $arrayFinal = $arrayWithExcludes;
             $message = "Đã thêm.";
             $alert = "success";

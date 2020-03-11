@@ -8,8 +8,8 @@ use App\Post;
 use App\Comment;
 use App\User;
 
-class AjaxController extends Controller
-{
+class AjaxController extends Controller {
+    
     public function autoRefreshComments(Request $request) {
         $post_id = $request->id;
         $getComments = Comment::orderBy('created_at','desc')

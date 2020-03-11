@@ -14,15 +14,13 @@ use App\Comment;
 use App\PostCategory;
 
 
-class PostsController extends Controller
-{
+class PostsController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $postsList = Post::orderBy('created_at','desc')->paginate(10);
         return view('admin.panel.postsList')->with('postsList',$postsList);
     }
@@ -32,8 +30,7 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $showCategories = PostCategory::all();
         return view('admin.panel.addPosts',['showCategories' => $showCategories]);
     }
@@ -44,9 +41,7 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostsPanelRequest $request)
-    {
-
+    public function store(PostsPanelRequest $request) {
         $arrayWithExcludes = array(
             'user_id' => Auth::user()->id,
             'image' => 'to_be_uploaded',
@@ -54,11 +49,9 @@ class PostsController extends Controller
         // $message = NULL;
         // $alert = NULL;
         $enableMessage = true;
-        if (Input::has('image'))
-        {
+        if (Input::has('image')) {
             $thisLegit = parent::getLegitExtension();
-            if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1)
-            {
+            if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1) {
                 $fileName = uniqid().'.'.Input::file('image')->getClientOriginalExtension();
                 $fileDir = storage_path().'/uploads/post_images/';
                 $moveFile = Input::file('image')->move($fileDir,$fileName);
@@ -66,16 +59,12 @@ class PostsController extends Controller
                 $arrayFinal = array_merge($arrayWithExcludes,$thisImage); //arrayFinal = ['user_id' => auth_id', 'image' => $fileName]
                 $message = "Đã thêm.";
                 $alert = "success";
-            } 
-            else 
-            {
+            } else {
                 $arrayFinal = $arrayWithExcludes;
                 $message = "Sai định dạng cho phép , nên chỉ thêm được nội dung";
                 $alert = "warning";
             }
-        }
-        else
-        {
+        } else {
             $arrayFinal = $arrayWithExcludes;
             $message = "Đã thêm.";
             $alert = "success";
@@ -95,8 +84,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         
     }
 
@@ -106,8 +94,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $postInfo = Post::find($id);
         $postCategories = PostCategory::all();
         $postCategoriesById = PostCategory::find($postInfo->category_id);
@@ -121,19 +108,16 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostsPanelRequest $request, $id)
-    {
+    public function update(PostsPanelRequest $request, $id) {
         $arrayWithExcludes = array(
             'user_id' => Auth::user()->id,
         );
         // $message = NULL;
         // $alert = NULL;
         $enableMessage = true;
-        if (Input::has('image')) 
-        {
+        if (Input::has('image'))  {
             $thisLegit = parent::getLegitExtension();
-            if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1) // Nếu có ảnh và đúng định dạng
-            {
+            if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1) {
                 $fileName = uniqid().'.'.Input::file('image')->getClientOriginalExtension();
                 $fileDir = storage_path().'/uploads/post_images/';
                 $moveFile = Input::file('image')->move($fileDir,$fileName);
@@ -141,16 +125,12 @@ class PostsController extends Controller
                 $arrayFinal = array_merge($arrayWithExcludes,$thisImage);
                 $message = 'Sửa thành công';
                 $alert = 'success';
-            } 
-            else // Nếu sai định dạng
-            {
+            } else {
                 $arrayFinal = $arrayWithExcludes;
                 $message = 'Vì sai định dạng file cho phép , nên chỉ cập nhật được nội dung';
                 $alert = 'warning';
             }
-        } 
-        else // Nếu không cần cập nhật ảnh
-        {
+        } else {
             $arrayFinal = $arrayWithExcludes;
             $message = 'Sửa thành công';
             $alert = 'success';
@@ -170,28 +150,20 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $enableMessage = true;
-        try 
-        {
-            if (is_numeric($id)) 
-            {
+        try {
+            if (is_numeric($id)) {
                 $result = Post::where('id',$id)->delete();
                 $alert = 'success';
                 $message = 'Đã xóa';
-                if (!$result)
-                {
-                    throw new Exception('Lại mò nữa rồi');
+                if (!$result) {
+                    throw new Exception('Không hợp lệ');
                 }
+            } else {
+                throw new Exception('Không hợp lệ');
             }
-            else
-            {
-                throw new Exception('Lại mò nữa rồi');
-            }
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             $alert = 'danger';
             $message = $e->getMessage();
         }

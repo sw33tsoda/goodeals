@@ -41,16 +41,17 @@ class PaymentController extends Controller
             }
     		$payerInfo->save();
 		    $status = true;
-            $payerCart->delete();
+            // Tạo đơn giao hàng
+            if ($status) {
+                $orders = new OrdersController;
+                $orders->create_orders($getPayerCart);
+                $payerCart->delete();
+            }
             DB::commit();
 		} catch (\PDOException $e) {
 		    DB::rollBack();
 		}
-		// Tạo đơn giao hàng
-		if ($status) {
-			$orders = new OrdersController;
-    		$orders->create_orders($getPayerCart);
-		}
+		
 		return redirect()->route('pay_view',['status'=>$status,'payerBalanceBefore'=>$payerBalanceBefore]);
     }
 
