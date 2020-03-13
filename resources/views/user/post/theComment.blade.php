@@ -26,7 +26,6 @@
 		<div class="col-lg-1" style="padding-left: 0">
 			<ul class="nav_btn user dropdown-toggle cmt" data-toggle="dropdown" href="#">
 				<div class="dropdown-menu cmt">
-		      		<li class="dropdown-item cmt" href="#">Sửa</li>
 		      		<li class="dropdown-item cmt cmt_del_{{$theComments->id}}" href="#">Xóa</li>
 			    </div>
 			</ul>

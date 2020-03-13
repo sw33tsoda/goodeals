@@ -104,6 +104,38 @@
 		background:#421C52;
 		
 	}
+
+	.dropdown-item.cmt {
+		height: 30px;
+		width: 100%;
+		line-height: 20px;
+		font-size: 15px;
+		color: white;
+	}
+
+	.dropdown-menu.cmt {
+		-webkit-box-shadow: -5px 0px 22px 6px rgba(0,0,0,0.26);
+		-moz-box-shadow: -5px 0px 22px 6px rgba(0,0,0,0.26);
+		box-shadow: -5px 0px 22px 6px rgba(0,0,0,0.26);
+		background-color: #50325c;
+		width: 195px;
+	}
+
+	.dropdown-item.cmt:hover {
+		background-image: linear-gradient(45deg, #50325c 25%, #421c52 25%, #421c52 50%, #50325c 50%, #50325c 75%, #421c52 75%, #421c52 100%);
+		background-size: 56.57px 56.57px;
+		color: white;
+	}
+
+	.dropdown-toggle.cmt {
+		margin-bottom: 0;
+	}
+
+	.dropdown-toggle.cmt:hover {
+		margin-bottom: 0;
+		background: 0;
+		color: white;
+	}
 </style>
 
 <div id="theProduct">
@@ -184,29 +216,38 @@
 	<h6 style="color:white">
 		@if (count($getReviews) > 0)
 			@foreach($getReviews as $reviews)
-				@php $getUserInfo = $getUsers->find($reviews->user_id); @endphp
 				<div class="media">
 					<div class="media-left" style="margin-right: 10px">
-						@if ($getUserInfo->avatar == 'to_be_uploaded')
+						@if ($reviews->users->avatar == 'to_be_uploaded')
 				          <img class="rounded-circle" src="{{url('/img/')}}/no_avatar.png" style="width:60px;height: 60px">
 				        @else
-				          <img class="rounded-circle" src="/storage/uploads/avatar_images/{{$getUserInfo->avatar}}" class="media-object" style="width:60px;height: 60px">
+				          <img class="rounded-circle" src="/storage/uploads/avatar_images/{{$reviews->users->avatar}}" class="media-object" style="width:60px;height: 60px">
 				        @endif
 			    	</div>
 			    	<div class="media-body">
-						<span style="font-size: 20px;">{{$getUserInfo->name}}</span> <span style="font-weight: normal; font-size: 12px">đã đánh giá</span>
-						{!!str_repeat('<span class="fa fa-star checked" style="font-size: 20px;"></span> ',$reviews->rate)!!}{!!str_repeat('<span class="fa fa-star" style="font-size: 20px;"></span>',$ratingLimit - $reviews->rate)!!}
-				        @switch($reviews->rate)
-				          @case(1) {{"(Rất tệ)"}} @break
-				          @case(2) {{"(Tệ)"}} @break
-				          @case(3) {{"(Ổn)"}} @break
-				          @case(4) {{"(Hay)"}} @break
-				          @case(5) {{"(Rất hay)"}} @break
-				        @endswitch
-				        <span style="font-weight: normal; font-size: 12px">vào lúc </span> {{\Carbon\Carbon::parse($reviews->created_at)->format('h:m A (d/m/Y)')}}
-				        
-				        <br>
-				        <span style="font-weight: normal; font-style: italic;font-size: 12px;">{{$reviews->review}}</span>
+			    		<div class="" style="float:left">
+							<span style="font-size: 20px;">{{$reviews->users->name}}</span> <span style="font-weight: normal; font-size: 12px">đã đánh giá</span>
+							{!!str_repeat('<span class="fa fa-star checked" style="font-size: 20px;"></span> ',$reviews->rate)!!}{!!str_repeat('<span class="fa fa-star" style="font-size: 20px;"></span>',$ratingLimit - $reviews->rate)!!}
+					        @switch($reviews->rate)
+					          @case(1) {{"(Rất tệ)"}} @break
+					          @case(2) {{"(Tệ)"}} @break
+					          @case(3) {{"(Ổn)"}} @break
+					          @case(4) {{"(Hay)"}} @break
+					          @case(5) {{"(Rất hay)"}} @break
+					        @endswitch
+					        <span style="font-weight: normal; font-size: 12px">vào lúc </span> {{\Carbon\Carbon::parse($reviews->created_at)->format('h:m A (d/m/Y)')}}
+					        <br>
+					        <span style="font-weight: normal; font-style: italic;font-size: 12px;">{{$reviews->review}}</span>
+				    	</div>
+				        @if (Auth::check() && Auth::user()->id == $reviews->user_id || Auth::check() && Auth::user()->role == 'admin')
+						<div style="padding-left: 0;float:right">
+							<ul class="nav_btn user dropdown-toggle cmt" data-toggle="dropdown" href="#">
+								<div class="dropdown-menu cmt">
+						      		<li class="dropdown-item" href="#" onclick="deleteReview({{$reviews->id}})">Xóa</li>
+							    </div>
+							</ul>
+						</div>
+						@endif
 			    	</div>
 		    	</div>
 				<br>
@@ -217,6 +258,8 @@
 		@endif
 	</h4>
 </div>
+
+
 
 <script>
 	function addToCart(id) {

@@ -10,7 +10,11 @@ class Review extends Model
    	protected $primaryKey = "id";
 
    	public function products() {
-   		return $this->belongsToMany(Product::class);
+   		return $this->belongsTo(Product::class,'product_id');
+   	}
+
+   	public function users() {
+   		return $this->belongsTo(User::class,'user_id');
    	}
 
    	public $timestamps = true;
