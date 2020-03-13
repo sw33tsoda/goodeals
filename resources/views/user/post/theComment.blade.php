@@ -1,10 +1,9 @@
 @foreach($comments as $theComments)
 	@if (!is_null($theComments->user_id))
-	@php $newUsers = $users->where('id',$theComments->user_id)->first(); @endphp
 	<div id="commentsList" class="row cmt_id_{{$theComments->id}}">
 		<div class="col-lg-11" style="padding-right: 0">
-			<img class="rounded-circle" src="/storage/uploads/avatar_images/{{$newUsers->avatar}}" class="media-object" style="width:50px;height:50px;margin: 5px 20px 5px 0px;float:left">
-			<p><span style="{{($newUsers->role == 'admin' ? 'color:red;' : '')}}">{{$newUsers->name}}</span> ({{$theComments->created_at}})<br><span style="font-size: 13px;">{{$theComments->comment}}</span><br></p>
+			<img class="rounded-circle" src="/storage/uploads/avatar_images/{{$theComments->users->avatar}}" class="media-object" style="width:50px;height:50px;margin: 5px 20px 5px 0px;float:left">
+			<p><span style="{{($theComments->users->role == 'admin' ? 'color:red;' : '')}}">{{$theComments->users->name}}</span> ({{$theComments->created_at}})<br><span style="font-size: 13px;">{{$theComments->comment}}</span><br></p>
 		</div>
 		@if (Auth::check() && Auth::user()->id == $theComments->user_id || Auth::check() && Auth::user()->role == 'admin')
 		<div class="col-lg-1" style="padding-left: 0">

@@ -58,6 +58,9 @@ class ProductsController extends Controller {
             'image' => 'to_be_uploaded',
         );
         $enableMessage = true;
+        $arrayFinal = $arrayWithExcludes;
+        $message = "Đã thêm.";
+        $alert = "success";
         if (Input::has('image')) {
             $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1) {
@@ -66,18 +69,20 @@ class ProductsController extends Controller {
                 $moveFile = Input::file('image')->move($fileDir,$fileName);
                 $thisImage = array('image' => $fileName);
                 $arrayFinal = array_merge($arrayWithExcludes,$thisImage);
-                $message = "Đã thêm.";
-                $alert = "success";
             } else {
-                $arrayFinal = $arrayWithExcludes;
                 $message = "Sai định dạng cho phép , nên chỉ thêm được thông tin";
                 $alert = "warning";
             }
-        } else {
-            $arrayFinal = $arrayWithExcludes;
-            $message = "Đã thêm.";
-            $alert = "success";
         }
+
+        ///////////////////////////////// KHÔNG DÙNG /////////////////////////////////////////
+        // $saveImage = parent::saveImage(Input::has('image'),Input::file('image'),'avatar',$arrayWithExcludes,'/uploads/product_images');
+        // $arrayFinal     = $saveImage['arrayFinal'];
+        // $alert          = $saveImage['alert'];
+        // $message        = $saveImage['message'];
+        // $requestExcept  = $request->except('_token','image');
+        //////////////////////////////////////////////////////////////////////////////////////
+
         $requestExcept = $request->except('_token','image'); 
         $forInsert = array_merge($requestExcept,$arrayFinal,array('created_at' => Carbon::now()));
         Product::insert($forInsert);
@@ -126,32 +131,31 @@ class ProductsController extends Controller {
     {
         $arrayWithExcludes = array();
         $enableMessage = true;
-        if (Input::has('image')) 
-        {
+        $arrayFinal = $arrayWithExcludes;
+        $message = "Đã thêm.";
+        $alert = "success";
+        if (Input::has('image')) {
             $thisLegit = parent::getLegitExtension();
-            if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1)
-            {
+            if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1) {
                 $fileName = uniqid().'.'.Input::file('image')->getClientOriginalExtension();
                 $fileDir = storage_path().'/uploads/product_images/';
                 $moveFile = Input::file('image')->move($fileDir,$fileName);
                 $thisImage = array('image' => $fileName);
                 $arrayFinal = array_merge($arrayWithExcludes,$thisImage);
-                $message = 'Sửa thành công';
-                $alert = 'success';
-            } 
-            else
-            {
-                $arrayFinal = $arrayWithExcludes;
+            } else {
                 $message = 'Vì sai định dạng file cho phép , nên chỉ cập nhật được thông tin';
                 $alert = 'warning';
             }
         } 
-        else
-        {
-            $arrayFinal = $arrayWithExcludes;
-            $message = 'Sửa thành công';
-            $alert = 'success';
-        }
+
+        ///////////////////////////////// KHÔNG DÙNG /////////////////////////////////////////
+        // $saveImage = parent::saveImage(Input::has('image'),Input::file('image'),'avatar',$arrayWithExcludes,'/uploads/product_images');
+        // $arrayFinal     = $saveImage['arrayFinal'];
+        // $alert          = $saveImage['alert'];
+        // $message        = $saveImage['message'];
+        // $requestExcept  = $request->except('_token','image');
+        //////////////////////////////////////////////////////////////////////////////////////
+
         $requestExcept = $request->except('_token','image');
         $forUpdate = array_merge($requestExcept,$arrayFinal);
         Product::where('id',$id)->update($forUpdate);

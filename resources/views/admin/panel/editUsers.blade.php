@@ -15,7 +15,7 @@
   <div class="form-group">
     <center><label for="exampleInputPassword1">Ảnh đại diện</label></center>
     <input type='file' class="form-control" id="imgInput" name="avatar" value="NULL" style="display: none;" accept=".jpg,.jpeg,.png"/><br>
-    <center><a id="upload_image_button" class="btn btn-danger" style="width: 30%;">Bấm vào đây để tải ảnh</a></center>
+    <center><a id="upload_image_button" class="btn btn-danger" style="width: auto;">Bấm vào đây để tải ảnh</a></center>
   </div>
   @if ($userInfo->avatar == "to_be_uploaded")
     <center><div id="preview_ghost" style="border:3px dashed black;border-radius:10px;width:50%;height:50%;opacity: 0.3"><p style="line-height:100.938px;text-align: center;font-size: 25px; font-weight: bolder;">Chưa có ảnh</p></div></center>

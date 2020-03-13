@@ -13,6 +13,7 @@
 
 Route::get('/test','Admin\DashboardController@test')->name('test');
 Route::get('/ajax','Admin\DashBoardController@test_view')->name('test_view');
+//
 
 Route::get('/', function () {
     return view('welcome');

@@ -29,7 +29,7 @@ class InterfaceController extends Controller
 
     public function showStore(Request $request) 
     {
-        $getProducts = Product::orderBy('created_at','desc')->get();
+        $getProducts = Product::orderBy('created_at','desc')->paginate(18);
         $getCategories = ProductCategory::all();
     	return view('user.store.store',['getProducts'=>$getProducts,'getCategories'=>$getCategories]);
     }
@@ -37,14 +37,14 @@ class InterfaceController extends Controller
     public function storeCategories(Request $request) {
         $explode = explode("-", $request->id);
         $platform_id = (int)$explode[count($explode) - 1];
-        $getProducts = Product::where('platform_id',$platform_id)->get();
+        $getProducts = Product::where('platform_id',$platform_id)->paginate(18);
         $getCategories = ProductCategory::all();
         return view('user.store.store',['getProducts'=>$getProducts,'getCategories'=>$getCategories]);
     }
 
     public function showPost() 
     {
-    	$getPosts = Post::orderBy('created_at','desc')->get();
+    	$getPosts = Post::orderBy('created_at','desc')->paginate(6);
     	$getComments = Comment::all();
     	$getCategories = PostCategory::all();
     	return view('user.post.post',[
@@ -56,7 +56,7 @@ class InterfaceController extends Controller
 
     public function postCategories(Request $request) 
     {
-        $byCategory = Post::where('category_id',$request->id)->get();
+        $byCategory = Post::where('category_id',$request->id)->orderBy('created_at','desc')->paginate(6);
         $getComments = Comment::all();
         $getCategories = PostCategory::all();
         return view('user.post.post',[

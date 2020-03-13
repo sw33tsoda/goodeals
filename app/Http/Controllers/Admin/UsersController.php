@@ -48,7 +48,10 @@ class UsersController extends Controller
             'avatar' => 'to_be_uploaded',
             'password' => Hash::make($request->password),
         );
+        $arrayFinal = $arrayWithExcludes;
         $enableMessage = true;
+        $message = "Đã thêm.";
+        $alert = "success";
         if (Input::has('avatar')) {
             $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('avatar')->getClientOriginalExtension(),$thisLegit) == 1) {
@@ -57,18 +60,20 @@ class UsersController extends Controller
                 $moveFile = Input::file('avatar')->move($fileDir,$fileName);
                 $thisImage = array('avatar' => $fileName);
                 $arrayFinal = array_merge($arrayWithExcludes,$thisImage);
-                $message = "Đã thêm.";
-                $alert = "success";
             } else {
-                $arrayFinal = $arrayWithExcludes;
                 $message = "Sai định dạng cho phép , nên không thể thêm ảnh đại diện";
                 $alert = "warning";
             }
-        } else {
-            $arrayFinal = $arrayWithExcludes;
-            $message = "Đã thêm.";
-            $alert = "success";
         }
+
+        ///////////////////////////////// KHÔNG DÙNG /////////////////////////////////////////
+        // $saveImage = parent::saveImage(Input::has('avatar'),Input::file('avatar'),'avatar',$arrayWithExcludes,'/uploads/avatar_images');
+        // $arrayFinal     = $saveImage['arrayFinal'];
+        // $alert          = $saveImage['alert'];
+        // $message        = $saveImage['message'];
+        // $requestExcept  = $request->except('_token','avatar','password');
+        //////////////////////////////////////////////////////////////////////////////////////
+
         $requestExcept = $request->except('_token','avatar','password'); 
         $forInsert = array_merge($requestExcept,$arrayFinal,array('created_at' => Carbon::now()));
         User::insert($forInsert);
@@ -110,7 +115,10 @@ class UsersController extends Controller
         $arrayWithExcludes = array(
             'password' => Hash::make($request->password),
         );
+        $arrayFinal = $arrayWithExcludes;
         $enableMessage = true;
+        $message = "Đã thêm.";
+        $alert = "success";
         if (Input::has('avatar')) {
             $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('avatar')->getClientOriginalExtension(),$thisLegit) == 1) {
@@ -119,18 +127,20 @@ class UsersController extends Controller
                 $moveFile = Input::file('avatar')->move($fileDir,$fileName);
                 $thisImage = array('avatar' => $fileName);
                 $arrayFinal = array_merge($arrayWithExcludes,$thisImage); 
-                $message = "Đã sửa.";
-                $alert = "success";
             } else {
-                $arrayFinal = $arrayWithExcludes;
                 $message = "Sai định dạng cho phép , nên không thể sửa ảnh đại diện";
                 $alert = "warning";
             }
-        } else {
-            $arrayFinal = $arrayWithExcludes;
-            $message = "Đã sửa.";
-            $alert = "success";
         }
+
+        ///////////////////////////////// KHÔNG DÙNG /////////////////////////////////////////
+        // $saveImage = parent::saveImage(Input::has('avatar'),Input::file('avatar'),'avatar',$arrayWithExcludes,'/uploads/avatar_images');
+        // $arrayFinal     = $saveImage['arrayFinal'];
+        // $alert          = $saveImage['alert'];
+        // $message        = $saveImage['message'];
+        // $requestExcept  = $request->except('_token','avatar','password');
+        //////////////////////////////////////////////////////////////////////////////////////
+
         $requestExcept = $request->except('_token','password','avatar'); 
         $forUpdate = array_merge($requestExcept,$arrayFinal,array('updated_at' => Carbon::now()));
         User::where('id',$id)->update($forUpdate);

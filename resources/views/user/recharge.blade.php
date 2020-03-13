@@ -192,7 +192,7 @@
                             <li>Nạp bằng <a href="#">VTCPay Donation</a></li>
                         </ul>
                         <div class="col-md-6">
-                            <h6>Các bước để nạp tiền thông qua Donate : </h6>
+                            <h7>Các bước để nạp tiền thông qua Donate :</h7>
                             <ol>
                             	<li><small><i>Nhập số tiền cần nạp</i></small></li>
                             	<li><small><i>Ở phần nội dung điền : </i> email_số tiền cần nạp</small></li>

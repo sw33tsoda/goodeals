@@ -114,7 +114,7 @@
 	@endforeach
 </div>
 <h5 id="post-tab">MỚI CẬP NHẬT</h5>
-<center><p id="post-tab">@if (count($getPosts) == 0) {{"Không có bài viết."}} @endif</p></center>
+@if (count($getPosts) == 0) <center><p id="post-tab">{{"Không có bài viết."}}</p></center> @else
 	<div style="padding: 15px">
 	@foreach ($getPosts as $show)
 	<div class="post row">
@@ -150,4 +150,6 @@
 	@endforeach
 	</div>
 </div>
+{{$getPosts->links()}}
+@endif
 @endsection

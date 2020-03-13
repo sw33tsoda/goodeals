@@ -10,11 +10,12 @@ class Comment extends Model
 	protected $primaryKey = 'id';
 
 	public function posts() {
-		return $this->belongsToMany(Post::class);
+		return $this->belongsTo(Post::class,'post_id');
 	}
 
 	public function users() {
-		return $this->belongsToMany(User::class);
+		return $this->belongsTo(User::class,'user_id');
 	}
+	
 	public $timestamps = true;
 }

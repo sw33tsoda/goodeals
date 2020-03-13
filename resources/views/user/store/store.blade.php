@@ -115,7 +115,7 @@
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;
-  height:380px;
+  height:350px;
   position:relative;
   overflow:hidden;
   -webkit-box-shadow: -5px 0px 22px 6px rgba(0,0,0,0.26);
@@ -208,13 +208,14 @@
 	</div>
 	<h5 id="store-tab">TẤT CẢ</h5>
 	<div class="row">
-		@foreach ($getProducts->take(18) as $lastest)
+		@foreach ($getProducts as $lastest)
 		<div class="col-6 col-sm-4 col-md-3 col-xl-2 product-item">
 			<center><a href="{{route('theProduct_view',['id'=>$lastest->id])}}"><img class="product-item-image" src="/storage/uploads/product_images/{{$lastest->image}}"></a></center><br>
 			<p class="product-item-price">{{number_format($lastest->price)}} VNĐ</p>
 		</div>
 		@endforeach
 	</div>
+	{{$getProducts->links()}}
 	@endif
 </div>
 @endsection

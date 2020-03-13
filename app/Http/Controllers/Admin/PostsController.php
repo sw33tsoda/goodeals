@@ -46,9 +46,10 @@ class PostsController extends Controller {
             'user_id' => Auth::user()->id,
             'image' => 'to_be_uploaded',
         );
-        // $message = NULL;
-        // $alert = NULL;
         $enableMessage = true;
+        $arrayFinal = $arrayWithExcludes;
+        $message = "Đã thêm.";
+        $alert = "success";
         if (Input::has('image')) {
             $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1) {
@@ -56,19 +57,21 @@ class PostsController extends Controller {
                 $fileDir = storage_path().'/uploads/post_images/';
                 $moveFile = Input::file('image')->move($fileDir,$fileName);
                 $thisImage = array('image' => $fileName);
-                $arrayFinal = array_merge($arrayWithExcludes,$thisImage); //arrayFinal = ['user_id' => auth_id', 'image' => $fileName]
-                $message = "Đã thêm.";
-                $alert = "success";
+                $arrayFinal = array_merge($arrayWithExcludes,$thisImage);
             } else {
-                $arrayFinal = $arrayWithExcludes;
                 $message = "Sai định dạng cho phép , nên chỉ thêm được nội dung";
                 $alert = "warning";
             }
-        } else {
-            $arrayFinal = $arrayWithExcludes;
-            $message = "Đã thêm.";
-            $alert = "success";
         }
+
+        ///////////////////////////////// KHÔNG DÙNG /////////////////////////////////////////
+        // $saveImage = parent::saveImage(Input::has('image'),Input::file('image'),'avatar',$arrayWithExcludes,'/uploads/post_images');
+        // $arrayFinal     = $saveImage['arrayFinal'];
+        // $alert          = $saveImage['alert'];
+        // $message        = $saveImage['message'];
+        // $requestExcept  = $request->except('_token','image');
+        //////////////////////////////////////////////////////////////////////////////////////
+
         $requestExcept = $request->except('_token','image'); 
         $forInsert = array_merge($requestExcept,$arrayFinal,array('created_at' => Carbon::now()));
         Post::insert($forInsert);
@@ -112,9 +115,10 @@ class PostsController extends Controller {
         $arrayWithExcludes = array(
             'user_id' => Auth::user()->id,
         );
-        // $message = NULL;
-        // $alert = NULL;
         $enableMessage = true;
+        $arrayFinal = $arrayWithExcludes;
+        $message = "Đã thêm.";
+        $alert = "success";
         if (Input::has('image'))  {
             $thisLegit = parent::getLegitExtension();
             if (in_array(Input::file('image')->getClientOriginalExtension(),$thisLegit) == 1) {
@@ -123,18 +127,20 @@ class PostsController extends Controller {
                 $moveFile = Input::file('image')->move($fileDir,$fileName);
                 $thisImage = array('image' => $fileName);
                 $arrayFinal = array_merge($arrayWithExcludes,$thisImage);
-                $message = 'Sửa thành công';
-                $alert = 'success';
             } else {
-                $arrayFinal = $arrayWithExcludes;
                 $message = 'Vì sai định dạng file cho phép , nên chỉ cập nhật được nội dung';
                 $alert = 'warning';
             }
-        } else {
-            $arrayFinal = $arrayWithExcludes;
-            $message = 'Sửa thành công';
-            $alert = 'success';
         }
+
+        ///////////////////////////////// KHÔNG DÙNG /////////////////////////////////////////
+        // $saveImage = parent::saveImage(Input::has('image'),Input::file('image'),'avatar',$arrayWithExcludes,'/uploads/post_images');
+        // $arrayFinal     = $saveImage['arrayFinal'];
+        // $alert          = $saveImage['alert'];
+        // $message        = $saveImage['message'];
+        // $requestExcept  = $request->except('_token','image');
+        //////////////////////////////////////////////////////////////////////////////////////
+
         $requestExcept = $request->except('_token','image');
         $forUpdate = array_merge($requestExcept,$arrayFinal);
         Post::where('id',$id)->update($forUpdate);
