@@ -16,7 +16,7 @@ class OrdersController extends Controller
     		DB::table('orders')->insert([
     			'user_id'	=>	$order->user_id,
     			'product_id'=>	$order->product_id,
-                'order_price'=> $order->products->price * ((100-parent::getPromo())/100),
+                'order_price'=> parent::discountThis($order->products->price),
     			'created_at'=>	Carbon::now(),
     		]);
     	}

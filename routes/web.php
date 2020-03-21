@@ -14,9 +14,21 @@
 Route::get('/test','Admin\DashboardController@test')->name('test');
 Route::get('/ajax','Admin\DashBoardController@test_view')->name('test_view');
 //
+Route::get('response',function(){
+	$getUsers = DB::table('users')->get();
+	return response()->json($getUsers);
+})->name('response');
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/playground', function () {
+    return view('playground');
+});
+
+Route::get('/new_index',function(){
+	return view('admin.index');
+});
+
+Route::get('/old_index',function(){
+	return view('admin.old_index');
 });
 
 Route::get('/create-test-account/',function(){
@@ -94,7 +106,7 @@ Route::group(['prefix'=>'user'],function(){
 Route::group(['prefix'=>'admin','middleware'=>'adminsOnly'],function(){
 	Route::get('index',function(){
 		return view('admin.index');
-	});
+	})->name('admin_view');
 	//Route::resource('users','Admin\UsersController');
 	Route::get('usersList','Admin\UsersController@index')->name('usersList_view');
 	Route::get('addUsers','Admin\UsersController@create')->name('addUsers_view');
@@ -124,7 +136,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminsOnly'],function(){
 
 	//Route::resource('comments','Admin\CommentsController');
 	Route::post('addComments/post','Admin\CommentsController@store')->name('addComments');
-	Route::get('autoRefresh','Admin\AjaxController@autoRefreshComments')->name('autoRefresh');
+	Route::get('getComments','Admin\AjaxController@getComments')->name('getComments');
 	Route::get('deleteComments','Admin\AjaxController@deleteComments')->name('deleteComments');
 
 	//Route::resource('reviews','Admin\ReviewsController');
@@ -146,7 +158,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminsOnly'],function(){
 
 	Route::resource('orders','Admin\OrdersController');
 
-	Route::get('destroy_test','Admin\OrdersController@destroy');
+	Route::get('destroy_test/{id}','Admin\OrdersController@destroy');
 
 
 });

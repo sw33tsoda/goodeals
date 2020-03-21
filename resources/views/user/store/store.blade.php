@@ -1,5 +1,6 @@
 @extends('user.index')
 @section('store-active','active')
+@section('glow-tag','')
 @section('store')
 <style>
 	.product-item {
@@ -74,7 +75,7 @@
 }
 
 .team-grid p {
-  color:#7d8285;
+  color:white;
 }
 
 .team-grid h2 {
@@ -176,6 +177,7 @@
 	padding: 15px;
 }
 </style>
+
 <div id="store">
 	<h1 id="content-title">CỬA HÀNG</h1>
 	<br>
@@ -198,7 +200,7 @@
                         <div class="cover">
                             <h3 class="name">{{$lastest->name}}</h3>
                             <p class="title">{{$lastest->categories->platform_name}}</p>
-                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                            <p class="product-item-price">{{number_format($lastest->price)}} VNĐ</p>
                         </div>
                     </div>
                 </div>

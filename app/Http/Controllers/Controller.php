@@ -7,22 +7,50 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Input;
+use App\TransactionLog;
+use Carbon\Carbon;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     // Giảm giá
-    private $promo = 50;
+    private $discount = 50;
     // Đuôi file hợp lệ
     private $legitExtension = array('jpg','png','gif','jpeg');
 
-    protected function getPromo() {
-    	return $this->promo;
+    protected function getDiscount() {
+    	return $this->discount;
+    }
+
+    protected function discountThis($basedPrice) {
+        return $basedPrice * ((100 - $this->getDiscount()) / 100);
     }
 
     protected function getLegitExtension() {
     	return $this->legitExtension;
+    }
+
+    protected function transaction_log($info,$transaction_type) {
+        $data = array();
+        function inputData($user_id,$product_id,$transaction_value,$transaction_type) {
+            return [
+                'user_id' => $user_id,
+                'product_id' => $product_id,
+                'transaction_value' => $transaction_value,
+                'transaction_type' => $transaction_type,
+                'created_at' => Carbon::now()
+            ];
+        }
+        if ($info->count() > 1) {
+            foreach ($info as $i) {
+                array_push($data,inputData($i->user_id,$i->product_id,$this->discountThis($i->products->price),$transaction_type));
+            }
+        } else {
+            $info = $info->first();
+            array_push($data,inputData($info->user_id,$info->product_id,$this->discountThis($info->products->price),$transaction_type));
+        }
+        return TransactionLog::insert($data);
     }
 
     ///////////////////////////////// KHÔNG DÙNG /////////////////////////////////////////

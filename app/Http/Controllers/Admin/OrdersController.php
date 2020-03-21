@@ -92,8 +92,7 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request) // refund
-    {
+    public function destroy(Request $request) {
         if (!empty($request->id)) {
             $order_id = $request->id;
             $check = false;
@@ -101,13 +100,14 @@ class OrdersController extends Controller
                 //Bất đầu giao dịch
                 DB::beginTransaction();
                 //Lấy đơn hàng
-                $getOrder = Order::find($order_id);
+                $getOrder = Order::where('id',$order_id);
                 //Tìm chủ nhân đơn hàng
-                $getUser = User::find($getOrder->user_id);
+                $getUser = User::find($getOrder->first()->user_id);
                 //Lấy giá đơn hàng
-                $getProductPriceFromOrder = $getOrder->order_price;
+                $getProductPriceFromOrder = $getOrder->first()->order_price;
                 //Tiến hành hoàn trả
                 $getUser->balance = $getUser->balance + $getProductPriceFromOrder;
+                parent::transaction_log($getOrder,'refund');
                 $getUser->save();
                 $getOrder->delete();
                 $check = true;

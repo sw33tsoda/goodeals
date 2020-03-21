@@ -235,7 +235,7 @@
 					          @case(4) {{"(Hay)"}} @break
 					          @case(5) {{"(Rất hay)"}} @break
 					        @endswitch
-					        <span style="font-weight: normal; font-size: 12px">vào lúc </span> {{\Carbon\Carbon::parse($reviews->created_at)->format('h:m A (d/m/Y)')}}
+					        <span style="font-weight: normal; font-size: 12px">vào lúc </span> <small>{{\Carbon\Carbon::parse($reviews->created_at)->format('h:i A (d/m/Y)')}}</small>
 					        <br>
 					        <span style="font-weight: normal; font-style: italic;font-size: 12px;">{{$reviews->review}}</span>
 				    	</div>

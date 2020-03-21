@@ -28,8 +28,8 @@ class CartController extends Controller
     	foreach ($cart as $cart_) {
     		$pay+=$cart_->price;
     	}
-    	$discountByPromo = $pay * ((100-parent::getPromo())/100);
-    	return view('user.cart.cart')->with('getCart',$cart)->with('pay',$pay)->with('promo',parent::getPromo())->with('totalpay',$discountByPromo);
+    	$discounted = parent::discountThis($pay);
+    	return view('user.cart.cart')->with('getCart',$cart)->with('pay',$pay)->with('discount',parent::getDiscount())->with('totalpay',$discounted);
     }
 
     public function removeFromCart(Request $request) {

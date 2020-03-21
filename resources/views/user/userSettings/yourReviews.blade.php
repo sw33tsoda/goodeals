@@ -39,7 +39,7 @@
 	          @case(5) {{"(Rất hay)"}} @break
 			@endswitch
 			<a href="{{route('theProduct_view',['id'=>$getProductById->id])}}">{{$getProductById->name}}</a>
-	        <span style="font-weight: normal; font-size: 12px">vào lúc </span> {{\Carbon\Carbon::parse($thisReviews->created_at)->format('h:m A (d/m/Y)')}} <a href="{{route('setting_deleteReview',['id'=>$thisReviews->id])}}">Xóa</a>
+	        <span style="font-weight: normal; font-size: 12px">vào lúc </span> {{\Carbon\Carbon::parse($thisReviews->created_at)->format('h:i A (d/m/Y)')}} <a href="{{route('setting_deleteReview',['id'=>$thisReviews->id])}}">Xóa</a>
 	        <br>
 	        <span style="font-weight: normal; font-style: italic;font-size: 12px;">{{$thisReviews->review}}</span>
 		</div>

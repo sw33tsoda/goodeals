@@ -29,5 +29,9 @@ class Product extends Model
         return $this->hasMany('App\Cart');
     }
 
+    public function transaction_logs() {
+        return $this->hasMany(TransactionLog::class);
+    }
+
     public $timestamps = true;
 }

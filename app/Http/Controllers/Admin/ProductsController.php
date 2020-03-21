@@ -132,7 +132,7 @@ class ProductsController extends Controller {
         $arrayWithExcludes = array();
         $enableMessage = true;
         $arrayFinal = $arrayWithExcludes;
-        $message = "Đã thêm.";
+        $message = "Đã sửa.";
         $alert = "success";
         if (Input::has('image')) {
             $thisLegit = parent::getLegitExtension();

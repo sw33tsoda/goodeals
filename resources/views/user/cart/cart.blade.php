@@ -117,7 +117,7 @@
 		</tr>
 		<tr>
 			<td>Khuyến mãi (%)<br><small>Chương trình khuyến mãi hàng quý.</small></td>
-			<td class="cart-tool">{{$promo}}%</td>
+			<td class="cart-tool">{{$discount}}%</td>
 		</tr>
 	</table>
 </div>
@@ -128,7 +128,7 @@
 			<td>TỔNG TIỀN CẦN THANH TOÁN</td>
 			<td>{{number_format($pay)}} VNĐ</td>
 			<td>-</td>
-			<td>{{$promo}}%(khuyến mãi)</td>
+			<td>{{$discount}}%(khuyến mãi)</td>
 			<td>=</td>
 			<td class="cart-tool totalpay">{{number_format($totalpay)}} VNĐ</td>
 		</tr>

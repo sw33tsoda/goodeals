@@ -7,7 +7,7 @@
    <strong>Thông báo : </strong>{{ session()->get( 'message' ) }}
 </div>
 @endif
-<table class="table text-center">
+<table class="table table-bordered table-hover order-table text-center">
   <thead>
     <tr>
       <th class="text-center" scope="col">Mã</th>
@@ -22,29 +22,31 @@
   <tbody>
     @foreach ($usersList as $show)
     <tr>
-      <td>{{$show->id}}</td>
-      <td>{{$show->name}}</td>
-      <td>{{number_format($show->balance)}} VNĐ</td>
-      <td>{{$show->role}}</td>
-      <td>Riêng tư</td>
-      <td>{{$show->email}}</td>
-      <td><a class="btn btn-default" href="{{url('/admin/editUsers/'.$show->id)}}">Sửa</a> <a class="btn btn-danger" data-toggle="modal" data-target="#modal_{{$show->id}}" href="#">Xóa</a></td>
+      <td class="align-middle">{{$show->id}}</td>
+      <td class="align-middle">{{$show->name}}</td>
+      <td class="align-middle">{{number_format($show->balance)}} VNĐ</td>
+      <td class="align-middle">{{$show->role}}</td>
+      <td class="align-middle">Riêng tư</td>
+      <td class="align-middle">{{$show->email}}</td>
+      <td class="align-middle"><a class="btn btn-warning-custom" href="{{url('/admin/editUsers/'.$show->id)}}">Sửa</a> <a class="btn btn-danger-custom" data-toggle="modal" data-target="#modal_{{$show->id}}" href="#">Xóa</a></td>
     </tr>
-    <div class="modal fade" id="modal_{{$show->id}}" role="dialog">
-      <div class="modal-dialog modal-sm">
+    <div class="modal" id="modal_{{$show->id}}" role="dialog">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header" style="border-bottom:0;">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Xóa người sử dụng này ?</h4>
+          <div class="modal-header">
+            <h5 class="modal-title">Xóa người sử dụng này ?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">
             <p>Bạn có thể sửa lại nếu muốn thay đổi.</p>
           </div>
           <div class="modal-footer" style="border-top:0;">
-            <a type="button" class="btn btn-default" href="{{url('/admin/editUsers/'.$show->id)}}">Sửa</a>
-            <a type="button" class="btn btn-danger"  href="{{url('/admin/deleteUsers/'.$show->id)}}">Xóa</a>
+            <a type="button" class="btn btn-warning-custom" href="{{url('/admin/editUsers/'.$show->id)}}">Sửa</a>
+            <a type="button" class="btn btn-danger-custom"  href="{{url('/admin/deleteUsers/'.$show->id)}}">Xóa</a>
           </div>
-        </div>      
+        </div>
       </div>
     </div>
     @endforeach 

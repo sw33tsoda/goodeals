@@ -18,19 +18,19 @@
     <div class="col-lg-6">
       <div class="form-group">
         <label for="exampleInputPassword1">Tên sản phẩm</label>
-        <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="name" value="{{$productInfo->name}}">
+        <input type="text" class="form-control form-control-custom" id="exampleInputName1" placeholder="Name" name="name" value="{{$productInfo->name}}">
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Nhà sản xuất</label>
-        <input type="text" class="form-control" id="exampleInputName1" placeholder="Developer" name="developer" value="{{$productInfo->developer}}">
+        <input type="text" class="form-control form-control-custom" id="exampleInputName1" placeholder="Developer" name="developer" value="{{$productInfo->developer}}">
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Nhà phát hành</label>
-        <input type="text" class="form-control" id="exampleInputName1" placeholder="Publisher" name="publisher" value="{{$productInfo->publisher}}">
+        <input type="text" class="form-control form-control-custom" id="exampleInputName1" placeholder="Publisher" name="publisher" value="{{$productInfo->publisher}}">
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Nền tảng</label>
-        <select class="form-control" name="platform_id">
+        <select class="form-control form-control-custom" name="platform_id">
           <option value="{{$productInfo->platform_id}}">Mặc định : {{$productCategoriesById->platform_name}}</option>
           @foreach ($productCategories as $show)
             <option value="{{$show->id}}">{{$show->platform_name}}</option>
@@ -39,21 +39,21 @@
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Giá</label>
-        <input type="text" class="form-control" id="exampleInputName1" placeholder="Price" name="price" value="{{$productInfo->price}}">
+        <input type="text" class="form-control form-control-custom" id="exampleInputName1" placeholder="Price" name="price" value="{{$productInfo->price}}">
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Mô tả sản phẩm</label>
-        <textarea type="text" class="form-control" id="exampleInputName1" placeholder="Description" name="desc">{{$productInfo->desc}}</textarea>
+        <textarea type="text" class="form-control form-control-custom" id="exampleInputName1" placeholder="Description" name="desc">{{$productInfo->desc}}</textarea>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="form-group">
         <label for="exampleInputPassword1">Ảnh đính kèm</label>
-        <input type='file' class="form-control" id="imgInput" name="image" value="NULL" style="display: none;" accept=".jpg,.jpeg,.png"/><br>
-        <a id="upload_image_button" class="btn btn-danger" style="width: 100%;">Bấm vào đây để tải ảnh</a>
+        <input type='file' class="form-control form-control-custom" id="imgInput" name="image" value="NULL" style="display: none;" accept=".jpg,.jpeg,.png"/><br>
+        <a id="upload_image_button" class="btn btn-danger-custom" style="width: 100%;color:white">Bấm vào đây để tải ảnh</a>
       </div>
       @if ($productInfo->image == "to_be_uploaded")
-        <center><div id="preview_ghost" style="margin-top:40px;border:3px dashed black;border-radius:10px;height:349.953px;width:62.5%;opacity: 0.3"><p style="line-height:100.938px;text-align: center;font-size: 25px; font-weight: bolder;">Chưa có ảnh</p></div></center>
+        <center><div id="preview_ghost" style="border-radius:10px;height:349.953px;width:62.5%;opacity: 0.3"><p style="line-height:100.938px;text-align: center;font-size: 25px; font-weight: bolder;">Chưa có ảnh</p></div></center>
       @else
         <center><img id="preview_ghost" style="margin-top:25px;border-radius: 6px;" src="/storage/uploads/product_images/{{$productInfo->image}}" width="62.5%" /></center>
       @endif
@@ -61,7 +61,7 @@
     </div>
   </div>
   
-  <button type="submit" class="btn btn-primary">Sửa</button>
+  <button type="submit" class="btn btn-primary-custom">Sửa</button>
 </form>
 
 

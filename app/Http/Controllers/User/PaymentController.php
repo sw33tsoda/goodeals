@@ -33,9 +33,9 @@ class PaymentController extends Controller
 		    DB::beginTransaction();
 		    $payerInfo = User::find($payerId);
 		    $payerBalanceBefore = $payerInfo->balance;
-            if (parent::getPromo() > 0) {
-                $discountByPromo = $total * ((100-parent::getPromo())/100);
-                $payerInfo->balance = $payerInfo->balance - $discountByPromo;
+            if (parent::getDiscount() > 0) {
+                $discounted = parent::discountThis($total);
+                $payerInfo->balance = $payerInfo->balance - $discounted;
             } else {
                 $payerInfo->balance = $payerInfo->balance - $total; 
             }
@@ -45,13 +45,13 @@ class PaymentController extends Controller
             if ($status) {
                 $orders = new OrdersController;
                 $orders->create_orders($getPayerCart);
+                parent::transaction_log($getPayerCart,'payment');
                 $payerCart->delete();
             }
             DB::commit();
 		} catch (\PDOException $e) {
 		    DB::rollBack();
-		}
-		
+		}	
 		return redirect()->route('pay_view',['status'=>$status,'payerBalanceBefore'=>$payerBalanceBefore]);
     }
 

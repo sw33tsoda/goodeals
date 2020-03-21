@@ -3,97 +3,152 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Admin</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<title>@yield('panel_title')</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{asset('/css/admin-index.css')}}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<style>
-		@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,300,500);
-		* {font-family: "Roboto", sans-serif;}
-
-		.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
-			background-color: white;
-			color:black;
-			border-color:black;
-
-		}
-
-		.pagination>li>a, .pagination>li>span {
-			color:black;
-		}
-
-		.checked {
-  			color: orange;
-		}
-	</style>
 </head>
 <body>
 
+<div class="">
+	<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+	  <a class="navbar-brand navbar-brand-custom" href="{{route('admin_view')}}">BẢNG ĐIỀU KHIỂN</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	    </ul>
+	    <form class="form-inline my-2 my-lg-0" method="GET" action="{{url('admin/search')}}">
+	    	<input class="form-control form-control-custom" type="text" name="search_input" placeholder="Bạn muốn tìm gì ?">
+	    	<button class="btn btn-success-custom my-2 my-sm-0" style="margin-left: 5px;" type="submit">Search</button>
+	    </form>
+	  </div>
+	</nav>
 
-@include('admin.layout.header')
-<div class="container" >
-	<hr>
-	<div class="row">
-		<div class="col-lg-3">
-			<form method="GET" action="{{url('admin/search')}}"><input class="form-control" type="text" name="search_input" placeholder="Bạn muốn tìm gì ?"></form>
-		</div>
-		<div class="col-lg-9 align-self-center">
-			<center><h3 style="line-height: 0px;">@yield('panel_title')</h3></center>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-3">
-			<h3>Tổng quan</h3>
-			<a style="font-weight: @yield('panel_highlight_dashBoard')" href="{{route('dashBoard_view')}}">Thống kê</a><br>
-			<hr>
-			<h3>Quản lý người dùng</h3>
-			<a style="font-weight: @yield('panel_highlight_usersList')" href="{{route('usersList_view')}}">Danh sách người dùng</a><br>
-			<a style="font-weight: @yield('panel_highlight_addUsers')" href="{{route('addUsers_view')}}">Thêm người dùng</a>
-			<hr>
-			<h3>Quản lý sản phẩm</h3>
-			<a style="font-weight: @yield('panel_highlight_productsList')" href="{{route('productsList_view')}}">Danh sách sản phẩm</a><br>
-			<a style="font-weight: @yield('panel_highlight_reviewsList')" href="{{route('reviewsList_view')}}">Danh sách đánh giá</a><br>
-			<a style="font-weight: @yield('panel_highlight_addProducts')" href="{{route('addProducts_view')}}">Thêm sản phẩm</a>
-			<hr>
-			<h3>Quản lý bài viết</h3>
-			<a style="font-weight: @yield('panel_highlight_postsList')" href="{{route('postsList_view')}}">Danh sách bài viết</a><br>
-			<a style="font-weight: @yield('panel_highlight_addPosts')" href="{{route('addPosts_view')}}">Thêm thể bài viết</a>
-			<hr>
-			<h3>Quản lý thể loại</h3>
-			<a style="font-weight: @yield('panel_highlight_showAllCategories')" href="{{route('showAllCategories_view')}}">Danh sách thể loại</a><br>
-			<a style="font-weight: @yield('panel_highlight_addPostCategories')" href="{{route('addPostCategories_view')}}">Thêm thể loại bài viết</a>
-			<br>
-			<a style="font-weight: @yield('panel_highlight_addProductCategories')" href="{{route('addProductCategories_view')}}">Thêm nền tảng sản phẩm</a>
-			<h3>Tùy chọn cá nhân</h3>
-			<hr>
-			<div class="row">
-				<div class="col-lg-4">
-					@if (Auth::user()->avatar != "to_be_uploaded")
-						<img src="/storage/uploads/avatar_images/{{Auth::user()->avatar}}" width="100%">
-					@else
-						<p>Không có ảnh đại diện</p>
-					@endif
-				</div>
-				<div class="col-lg-8">
-					<a href="#">Xem thông tin tài khoản</a><br>
-					<a href="#">Cài đặt tài khoản</a><br>
-					<a href="#">Cài đặt riêng tư</a>
-				</div>
+	<div class="content row">
+		<div class="content-left col-lg-3 col-xl-2">
+			<div id="accordion" class="accordion-custom">
+			  <div class="card-custom">
+			    <div class="card-header card-header-custom">
+			      <a class="card-link-custom" data-toggle="collapse" href="#dashboard-panel">
+			        TỔNG QUAN
+			      </a>
+			    </div>
+			    <div id="dashboard-panel" class="collapse collapse-custom" data-parent="#accordion">
+			      <div class="card-body card-body-custom">
+			        <div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('dashBoard_view')}}">TỔNG QUAN</a>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
 			</div>
-			<form method="POST" action="{{route('logout')}}">
-				@csrf
-				<button type="submit" style="margin-top: 25px;" class="btn">Đăng xuất với tư cách <b><i>{{Auth::user()->name}}</i></b></button>
-			</form>
+			<div id="accordion" class="accordion-custom">
+			  <div class="card-custom">
+			    <div class="card-header card-header-custom">
+			      <a class="card-link-custom" data-toggle="collapse" href="#order-panel">
+			        QUẢN LÝ ĐƠN HÀNG
+			      </a>
+			    </div>
+			    <div id="order-panel" class="collapse collapse-custom" data-parent="#accordion">
+			      <div class="card-body card-body-custom">
+			        <div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('orders.index')}}">XEM ĐƠN ĐẶT HÀNG</a>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div id="accordion" class="accordion-custom">
+			  <div class="card-custom">
+			    <div class="card-header card-header-custom">
+			      <a class="card-link-custom" data-toggle="collapse" href="#user-panel">
+			        QUẢN LÝ NGƯỜI DÙNG
+			      </a>
+			    </div>
+			    <div id="user-panel" class="collapse collapse-custom" data-parent="#accordion">
+			      <div class="card-body card-body-custom">
+			        <div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('usersList_view')}}">DANH SÁCH NGƯỜI DÙNG</a>
+			        </div>
+			        <div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('addUsers_view')}}">THÊM NGƯỜI DÙNG</a>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div id="accordion" class="accordion-custom">
+			  <div class="card-custom">
+			    <div class="card-header card-header-custom">
+			      <a class="card-link-custom" data-toggle="collapse" href="#product-panel">
+			        QUẢN LÝ SẢN PHẨM
+			      </a>
+			    </div>
+			    <div id="product-panel" class="collapse collapse-custom" data-parent="#accordion">
+			      <div class="card-body card-body-custom">
+			        <div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('productsList_view')}}">DANH SÁCH SẢN PHẨM</a>
+			        </div>
+			        <div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('addProducts_view')}}">THÊM SẢN PHẨM</a>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div id="accordion" class="accordion-custom">
+			  <div class="card-custom">
+			    <div class="card-header card-header-custom">
+			      <a class="card-link-custom" data-toggle="collapse" href="#post-panel">
+			        QUẢN LÝ BÀI VIẾT
+			      </a>
+			    </div>
+			    <div id="post-panel" class="collapse collapse-custom" data-parent="#accordion">
+			      <div class="card-body card-body-custom">
+			        <div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('postsList_view')}}">DANH SÁCH BÀI VIẾT</a>
+			        </div>
+			        <div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('addPosts_view')}}">THÊM BÀI VIẾT</a>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div id="accordion" class="accordion-custom">
+			  <div class="card-custom">
+			    <div class="card-header card-header-custom">
+			      <a class="card-link-custom" data-toggle="collapse" href="#category-panel">
+			        QUẢN LÝ THỂ LOẠI
+			      </a>
+			    </div>
+			    <div id="category-panel" class="collapse collapse-custom" data-parent="#accordion">
+			      <div class="card-body card-body-custom">
+			      	<div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('showAllCategories_view')}}">DANH SÁCH THỂ LOẠI</a>
+			        </div>
+			        <div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('addProductCategories_view')}}">THÊM NỀN TẢNG SẢN PHẨM</a>
+			        </div>
+					<div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('addProductCategories_view')}}">THÊM THỂ LOẠI BÀI VIẾT</a>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 		</div>
-		<div class="col-lg-9" style="padding-top: 25px;" id="main">@yield('panel')</div>
+		<div class="content-right col-lg-9 col-xl-10">@yield('panel')</div>
 	</div>
-	<hr>
 </div>
-@include('admin.layout.footer')
-
 
 </body>
 </html>

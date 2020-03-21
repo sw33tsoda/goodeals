@@ -106,7 +106,7 @@
 		      		{{"Chưa có"}}
 		      	@endif
 		      </td>
-		      <td class="cart-tool">{{\Carbon\Carbon::parse($yourOrders->created_at)->format('h:m A (d/m/Y)')}}</td>
+		      <td class="cart-tool">{{\Carbon\Carbon::parse($yourOrders->created_at)->format('h:i A (d/m/Y)')}}</td>
 		    </tr>
 		@endforeach
 	  </tbody>

@@ -26,7 +26,7 @@
 			<div class="card" style="background-color: rgba(0,0,0,.03);margin-bottom: 3px;">
 			    <div class="card-header" style="height: 30px;font-size: 14px;line-height: 0.5;">
 			      <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree_comment_id_{{$today->id}}">
-			        <span id="span">Bạn đã bình luận vào bài viết </span><a href="{{route('thePost_view',['id'=>$getPostName->id,'title'=>str_slug($getPostName->title,'-')])}}">{{$getPostName->title}}</a><span id="span"></span><span style="color:white;float:right">{{\Carbon\Carbon::parse($today->created_at)->format('h:m A (d/m/Y)')}}}}</span>
+			        <span id="span">Bạn đã bình luận vào bài viết </span><a href="{{route('thePost_view',['id'=>$getPostName->id,'title'=>str_slug($getPostName->title,'-')])}}">{{$getPostName->title}}</a><span id="span"></span><span style="color:white;float:right">{{\Carbon\Carbon::parse($today->created_at)->format('h:i A (d/m/Y)')}}</span>
 			      </a>
 			    </div>
 			    <div id="collapseThree_comment_id_{{$today->id}}" class="collapse" data-parent="#accordion">
@@ -52,7 +52,7 @@
 		  <div class="card" style="background-color: rgba(0,0,0,.03);margin-bottom: 3px;">
 		    <div class="card-header" style="height: 30px;font-size: 14px;line-height: 0.5;">
 		      <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree_comment_id_{{$comments->id}}">
-		        <span id="span">Bạn đã bình luận vào bài viết </span><a href="{{route('thePost_view',['id'=>$getPostName->id,'title'=>str_slug($getPostName->title,'-')])}}">{{$getPostName->title}}</a><span id="span"></span><span style="float:right;color: white;">{{\Carbon\Carbon::parse($comments->created_at)->format('h:m A (d/m/Y)')}}</span>
+		        <span id="span">Bạn đã bình luận vào bài viết </span><a href="{{route('thePost_view',['id'=>$getPostName->id,'title'=>str_slug($getPostName->title,'-')])}}">{{$getPostName->title}}</a><span id="span"></span><span style="float:right;color: white;">{{\Carbon\Carbon::parse($comments->created_at)->format('h:i A (d/m/Y)')}}</span>
 		      </a>
 		    </div>
 		    <div id="collapseThree_comment_id_{{$comments->id}}" class="collapse" data-parent="#accordion">

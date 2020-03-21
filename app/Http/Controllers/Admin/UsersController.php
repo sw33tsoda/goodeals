@@ -117,7 +117,7 @@ class UsersController extends Controller
         );
         $arrayFinal = $arrayWithExcludes;
         $enableMessage = true;
-        $message = "Đã thêm.";
+        $message = "Đã sửa.";
         $alert = "success";
         if (Input::has('avatar')) {
             $thisLegit = parent::getLegitExtension();

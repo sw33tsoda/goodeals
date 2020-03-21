@@ -8,7 +8,7 @@
    <strong>Thông báo : </strong>{{ session()->get( 'message' ) }}
 </div>
 @endif
-<table class="table text-center">
+<table class="table table-bordered table-hover order-table text-center">
   <thead>
     <tr>
       <th class="text-center" scope="col">Mã</th>
@@ -23,38 +23,43 @@
   <tbody>
     @foreach ($productsList as $show)
     <tr>
-      <td>{{$show->id}}</td>
-      <td>{{$show->name}}</td>
-      <td>{{$show->developer}}</td>
-      <td>{{$show->publisher}}</td>
-      <td>{{$show->platform_name}}</td>
-      <td>{{$show->price}}</td>
-      <td><a class="btn btn-success" data-toggle="modal" data-target="#fullInfo_{{$show->id}}" href="#">Xem đầy đủ</a> <a class="btn btn-default" href="{{url('/admin/editProducts/'.$show->id)}}">Sửa</a> <a class="btn btn-danger" data-toggle="modal" data-target="#modal_{{$show->id}}" href="#">Xóa</a>
+      <td class="align-middle">{{$show->id}}</td>
+      <td class="align-middle">{{$show->name}}</td>
+      <td class="align-middle">{{$show->developer}}</td>
+      <td class="align-middle">{{$show->publisher}}</td>
+      <td class="align-middle">{{$show->platform_name}}</td>
+      <td class="align-middle">{{$show->price}}</td>
+      <td class="align-middle"><a class="btn btn-success-custom" data-toggle="modal" data-target="#fullInfo_{{$show->id}}" href="#">Xem đầy đủ</a> <a class="btn btn-warning-custom" href="{{url('/admin/editProducts/'.$show->id)}}">Sửa</a> <a class="btn btn-danger-custom" data-toggle="modal" data-target="#modal_{{$show->id}}" href="#">Xóa</a>
         <!-- DELETE MODAL -->
-          <div class="modal fade" id="modal_{{$show->id}}" role="dialog">
-            <div class="modal-dialog modal-sm">
+          <div class="modal" id="modal_{{$show->id}}" role="dialog">
+            <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <div class="modal-header" style="border-bottom:0;">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Xóa sản phẩm này ?</h4>
+                <div class="modal-header">
+                  <h5 class="modal-title">Xóa sản phẩm này ?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
                 <div class="modal-body">
-                  <p>Bạn có thể sửa lại nếu muốn thay đổi.</p>
+                  <p style="text-align: left">Bạn có thể sửa lại nếu muốn thay đổi.</p>
                 </div>
                 <div class="modal-footer" style="border-top:0;">
-                  <a type="button" class="btn btn-default" href="{{url('/admin/editProducts/'.$show->id)}}">Sửa</a>
-                  <a type="button" class="btn btn-danger"  href="{{url('/admin/deleteProducts/'.$show->id)}}">Xóa</a>
+                  <a type="button" class="btn btn-warning-custom" href="{{url('/admin/editProducts/'.$show->id)}}">Sửa</a>
+                  <a type="button" class="btn btn-danger-custom"  href="{{url('/admin/deleteProducts/'.$show->id)}}">Xóa</a>
                 </div>
-              </div>      
+              </div>
             </div>
           </div>
           <!-- FULL INFO MODAL -->
-          <div class="modal fade" id="fullInfo_{{$show->id}}" role="dialog">
-            <div class="modal-dialog modal-lg">
+
+          <div class="modal" id="fullInfo_{{$show->id}}" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
-                <div class="modal-header" style="border-bottom:0;">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Thông tin đầy đủ</h4>
+                <div class="modal-header">
+                  <h5 class="modal-title">Thông tin đầy đủ</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
                 <div class="modal-body">
                   <div class="row">
@@ -66,9 +71,9 @@
                       @endif
                     </div>
                     <div class="col-lg-7">
-                      <ul class="nav nav-tabs">
-                        <li class="active" style="width:50%;"><a data-toggle="tab" href="#info_{{$show->id}}">Thông tin</a></li>
-                        <li style="width:50%;"><a data-toggle="tab" href="#reviews_{{$show->id}}">Đánh giá</a></li>
+                      <ul class="nav nav-tabs" style="border:none;">
+                        <li style="width:50%;"><a class="btn btn-success-custom" style="width: 95%" data-toggle="tab" href="#info_{{$show->id}}">Thông tin</a></li>
+                        <li style="width:50%;"><a class="btn btn-success-custom" style="width: 95%" data-toggle="tab" href="#reviews_{{$show->id}}">Đánh giá</a></li>
                       </ul>
                       <div class="tab-content">
                         <div id="info_{{$show->id}}" class="tab-pane fade in active">
@@ -108,7 +113,7 @@
                                 @endforeach
                                 @if ($is_rating) 
                                   {{ round($avg = $sum / $count,2) }}/5
-                                  {!! str_repeat('<span class="fa fa-star checked"></span>',(int)$avg) !!}{!! str_repeat('<span class="fa fa-star"></span>',$ratingLimit - (int)$avg) !!}
+                                  {!! str_repeat('<span style="color: orange" class="fa fa-star checked"></span>',(int)$avg) !!}{!! str_repeat('<span style="color:grey" class="fa fa-star"></span>',$ratingLimit - (int)$avg) !!}
                                   @switch((int)$avg)
                                     @case(1) {{"(Rất tệ)"}} @break
                                     @case(2) {{"(Tệ)"}} @break
@@ -123,7 +128,7 @@
                             </tr>
                           </table>
                         </div>
-                        <div id="reviews_{{$show->id}}" class="tab-pane fade">
+                        <div id="reviews_{{$show->id}}" class="tab-pane fade" style="overflow: scroll;height: 500px;margin-top: 5px;">
                           <h3>Đánh giá</h3>
                           @if (count($reviewsList) > 0)
                             @php {{$is_match = true;}} @endphp
@@ -137,8 +142,8 @@
                                       <img class="img-circle" src="/storage/uploads/avatar_images/{{$showReviews->avatar}}" class="media-object" style="width:60px">
                                     @endif
                                   </div>
-                                  <div class="media-body">
-                                    {!!str_repeat('<span class="fa fa-star checked"></span>',$showReviews->rate)!!}{!!str_repeat('<span class="fa fa-star"></span>',$ratingLimit - $showReviews->rate)!!}
+                                  <div class="media-body" style="padding-left: 5px;">
+                                    {!!str_repeat('<span class="fa fa-star checked" style="color: orange"></span>',$showReviews->rate)!!}{!!str_repeat('<span class="fa fa-star" style="color:grey"></span>',$ratingLimit - $showReviews->rate)!!}
                                     @switch($showReviews->rate)
                                       @case(1) {{"(Rất tệ)"}} @break
                                       @case(2) {{"(Tệ)"}} @break
@@ -146,8 +151,7 @@
                                       @case(4) {{"(Hay)"}} @break
                                       @case(5) {{"(Rất hay)"}} @break
                                     @endswitch
-                                    <h4 class="media-heading">{{$showReviews->name}}</h4>
-                                    <p style="font-size: 12px;">{{$showReviews->review}} <a href="{{route('deleteReviews',['id' => $showReviews->id])}}">Xóa đánh giá này</a></p>
+                                    <p style="font-size: 12px;"><span style="font-weight: bold;font-size: 14pt;">{{$showReviews->name}}</span> {{$showReviews->review}} <a href="{{route('deleteReviews',['id' => $showReviews->id])}}">Xóa đánh giá này</a></p>
                                   </div>
                                 </div>
                               @else
@@ -168,7 +172,7 @@
                 <div class="modal-footer" style="border-top:0;">
                   <a type="button" class="btn btn-default" href="" data-dismiss="modal">Đóng</a>
                 </div>
-              </div>      
+              </div>
             </div>
           </div>
       </td>

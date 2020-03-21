@@ -67,4 +67,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Cart');
     }
+
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
+
+    public function transaction_logs() {
+        return $this->hasMany(TransactionLog::class);
+    }
 }
