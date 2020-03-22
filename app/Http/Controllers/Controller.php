@@ -15,7 +15,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     // Giảm giá
-    private $discount = 50;
+    private $discount = 5;
     // Đuôi file hợp lệ
     private $legitExtension = array('jpg','png','gif','jpeg');
 

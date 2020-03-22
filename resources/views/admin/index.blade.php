@@ -24,6 +24,14 @@
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
+	    	@if (Auth::user()->avatar == 'to_be_uploaded')
+				<img class="rounded-circle" src="https://www.brandeps.com/icon-download/U/User-02.svg" width="30px" height="30px">
+			@else
+				<img class="rounded-circle" src="{{'/storage/uploads/avatar_images/'.Auth::user()->avatar}}" width="30px" height="30px">
+			@endif
+			<li class="nav-item">
+		        <a class="nav-link" href="{{route('editUsers_view',['id'=>Auth::user()->id])}}">{{Auth::user()->name}}</a>
+		    </li>
 	    </ul>
 	    <form class="form-inline my-2 my-lg-0" method="GET" action="{{url('admin/search')}}">
 	    	<input class="form-control form-control-custom" type="text" name="search_input" placeholder="Bạn muốn tìm gì ?">
@@ -96,6 +104,9 @@
 			      <div class="card-body card-body-custom">
 			        <div class="sub-tab">
 			        	<a class="sub-tab-ahref" href="{{route('productsList_view')}}">DANH SÁCH SẢN PHẨM</a>
+			        </div>
+			        <div class="sub-tab">
+			        	<a class="sub-tab-ahref" href="{{route('reviewsList_view')}}">NGƯỜI DÙNG ĐÁNH GIÁ</a>
 			        </div>
 			        <div class="sub-tab">
 			        	<a class="sub-tab-ahref" href="{{route('addProducts_view')}}">THÊM SẢN PHẨM</a>

@@ -17,14 +17,14 @@
     <div class="media" style="text-align: left;">
       <div class="media-left">
         @if ($showReviews->avatar == 'to_be_uploaded')
-          <img class="img-circle" src="{{url('/img/')}}/no_avatar.png" style="width:60px">
+          <img class="rounded-circle" src="{{url('/img/')}}/no_avatar.png" style="width:60px">
         @else
-          <img class="img-circle" src="/storage/uploads/avatar_images/{{$showReviews->avatar}}" class="media-object" style="width:60px">
+          <img class="rounded-circle" src="/storage/uploads/avatar_images/{{$showReviews->avatar}}" class="media-object" style="width:60px">
         @endif
       </div>
-      <div class="media-body">
+      <div class="media-body" style="padding-left: 5px;">
         [ {{$showReviews->product_name}} ]
-        {!!str_repeat('<span class="fa fa-star checked"></span>',$showReviews->rate)!!}{!!str_repeat('<span class="fa fa-star"></span>',$ratingLimit - $showReviews->rate)!!}
+        {!!str_repeat('<span class="fa fa-star checked" style="color:orange"></span>',$showReviews->rate)!!}{!!str_repeat('<span style="color:grey" class="fa fa-star"></span>',$ratingLimit - $showReviews->rate)!!}
         @switch($showReviews->rate)
           @case(1) {{"(Rất tệ)"}} @break
           @case(2) {{"(Tệ)"}} @break

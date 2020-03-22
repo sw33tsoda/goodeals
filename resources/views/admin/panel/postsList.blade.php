@@ -36,7 +36,7 @@
                      </center>
                      <p style="margin-top: 25px;text-indent:50px;">{!!$show->content!!}</p>
                      <p style="text-align: right;font-style:italic;margin-top: 25px;">{{$show->author}} (user_id : {{$show->user_id}})</p>
-                     <p style="font-style: italic;margin-top: 25px;"> Ngày đăng : {{\Carbon\Carbon::parse($show->created_at)->format('h:i A (d/m/Y)')}} @if($show->updated_at != NULL), Đã sửa ngày : {{$show->updated_at}}@endif </p>
+                     <p style="font-style: italic;margin-top: 25px;"> Ngày đăng : {{\Carbon\Carbon::parse($show->created_at)->format('h:i A (d/m/Y)')}} @if($show->updated_at != NULL), Đã sửa ngày : {{\Carbon\Carbon::parse($show->updated_at)->format('h:i A (d/m/Y)')}}@endif </p>
                      <a class="btn btn-warning-custom" href="{{url('/admin/editPosts/'.$show->id)}}">Sửa</a> <a class="btn btn-danger-custom" style="color: white" data-toggle="modal" data-target="#modal_{{$show->id}}" style="cursor: pointer;">Xóa</a>
                      <div class="modal fade" id="modal_{{$show->id}}" role="dialog">
                         <div class="modal-dialog modal-sm">

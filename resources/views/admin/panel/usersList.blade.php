@@ -16,10 +16,21 @@
       <th class="text-center" scope="col">Vai trò</th>
       <th class="text-center" scope="col">Mật khẩu</th>
       <th class="text-center" scope="col">Địa chỉ Email</th>
+      <th class="text-center" scope="col">Ngày tham gia</th>
       <th class="text-center" scope="col">Hành động</th>
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td class="align-middle">{{Auth::user()->id}}</td>
+      <td class="align-middle">{{Auth::user()->name}} <span style="color: red">[Tài khoản của bạn]</span></td>
+      <td class="align-middle">{{number_format(Auth::user()->balance)}} VNĐ</td>
+      <td class="align-middle">{{Auth::user()->role}}</td>
+      <td class="align-middle">Riêng tư</td>
+      <td class="align-middle">{{Auth::user()->email}}</td>
+      <td class="align-middle" scope="col">{{\Carbon\Carbon::parse(Auth::user()->created_at)->format('h:i A (d/m/Y)')}}</td>
+      <td class="align-middle"><a class="btn btn-warning-custom" href="{{url('/admin/editUsers/'.Auth::user()->id)}}">Sửa</a></td>
+    </tr>
     @foreach ($usersList as $show)
     <tr>
       <td class="align-middle">{{$show->id}}</td>
@@ -28,6 +39,7 @@
       <td class="align-middle">{{$show->role}}</td>
       <td class="align-middle">Riêng tư</td>
       <td class="align-middle">{{$show->email}}</td>
+      <td class="align-middle" scope="col">{{\Carbon\Carbon::parse($show->created_at)->format('h:i A (d/m/Y)')}}</td>
       <td class="align-middle"><a class="btn btn-warning-custom" href="{{url('/admin/editUsers/'.$show->id)}}">Sửa</a> <a class="btn btn-danger-custom" data-toggle="modal" data-target="#modal_{{$show->id}}" href="#">Xóa</a></td>
     </tr>
     <div class="modal" id="modal_{{$show->id}}" role="dialog">
