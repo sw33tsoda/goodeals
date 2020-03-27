@@ -27,8 +27,17 @@
 	</style>
 	<div class="row">
 		<div id="stats" class="col-lg-12">
+			<p>
+				<a class="btn btn-danger-custom" href="{{route('dashBoard_view',['day_limit_range'=>7])}}">7 NGÀY</a>
+				<a class="btn btn-danger-custom" href="{{route('dashBoard_view',['day_limit_range'=>30])}}">30 NGÀY</a>
+				<a class="btn btn-danger-custom" href="{{route('dashBoard_view',['day_limit_range'=>90])}}">90 NGÀY</a>
+			</p>
 			<div>
+
 				<h1>Doanh số</h1>
+				<br>
+				<h1>{{number_format($salesDaysAgo[0]->revenue - $refundDaysAgo[0]->money_back)}} VNĐ</h1>
+				<p>Hiện có</p>
 				<div class="row">
 					<div class="col-lg-6">
 						<h1 class="count">{{$salesCount->count()}}</h1>
@@ -56,7 +65,7 @@
 					    "data": {
 					        "labels": [
 					        	@foreach($sales as $sale)
-					        		"{{\Carbon\Carbon::parse($sale->day)->format('d/m')}} - {{number_format($sale->revenue)}} VNĐ",
+					        		"{{\Carbon\Carbon::parse($sale->date)->format('d/m')}} - {{number_format($sale->revenue)}} VNĐ",
 					        	@endforeach
 					        ],
 					        "datasets": [{
@@ -122,7 +131,7 @@
 					    "data": {
 					        "labels": [
 					        	@foreach($refund as $rf)
-									"{{\Carbon\Carbon::parse($rf->day)->format('d/m')}} - {{number_format($rf->cost)}} VNĐ",
+									"{{\Carbon\Carbon::parse($rf->date)->format('d/m')}} - {{number_format($rf->cost)}} VNĐ",
 								@endforeach
 					        ],
 					        "datasets": [{
@@ -182,6 +191,60 @@
 			<div>
 				<h1 class="count">{{$usersStats->count()}}</h1>
 				<p>Người dùng</p>
+				<canvas id="register-chart"></canvas>
+				<script>
+
+					let register_chart = document.getElementById('register-chart').getContext('2d');
+					let createRegisterChart = new Chart(register_chart,{
+						type: 'line',
+					    "data": {
+					        "labels": [
+					        	@foreach($registeredByDay as $users)
+									"{{\Carbon\Carbon::parse($users->month)->format('d/m/Y')}}",
+								@endforeach
+					        ],
+					        "datasets": [{
+					            "label": "số lượng",
+					            "data": [
+					            	@foreach($registeredByDay as $users)
+										"{{$users->num}}",
+									@endforeach
+					            ],
+					            "fill": false,
+					            "borderColor": "rgba(54, 162, 235, 0.9)",
+					            "lineTension": 0.1
+					        }]
+					    },
+					    options: {
+					    	title : {
+					    		display:true,
+					    		text:'Lượng người đăng ký hàng ngày'
+					    	},
+					    	responsive:true,
+					    	plugins: {
+							    datalabels: {
+							        color: 'black',
+							        anchor: 'end',
+							        align: 'start',
+							        offset: -20,
+							        // borderWidth: 2,
+							        // borderColor: '#fff',
+							        // borderRadius: 25,
+							        backgroundColor: (context) => {
+							          return context.dataset.backgroundColor;
+							        },
+							        font: {
+							          weight: 'bold',
+							          size: '10'
+							        },
+							        // formatter: (value) => {
+							        //   return value + ' sản phẩm';
+							        // }
+							      }
+							    }
+					    }
+					});
+				</script>
 			</div>
 			<div>
 				<h1 class="count">{{$adminsStats->count()}}</h1>
@@ -268,20 +331,21 @@
 				<p>Bình luận</p>
 				<canvas id="comment-chart"></canvas>
 				<script>
+
 					let comment_chart = document.getElementById('comment-chart').getContext('2d');
 					let createCommentChart = new Chart(comment_chart,{
 						type: 'line',
 					    "data": {
 					        "labels": [
 					        	@foreach($commentsByDay as $posts)
-									"{{\Carbon\Carbon::parse($posts->day)->format('d/m')}}",
+									"{{\Carbon\Carbon::parse($posts->date)->format('d/m/Y')}}",
 								@endforeach
 					        ],
 					        "datasets": [{
 					            "label": "số lượng",
 					            "data": [
 					            	@foreach($commentsByDay as $posts)
-										"{{$posts->num_of_comments}}",
+										"{{$posts->num}}",
 									@endforeach
 					            ],
 					            "fill": false,

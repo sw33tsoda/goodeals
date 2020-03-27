@@ -105,7 +105,7 @@ Route::group(['prefix'=>'user'],function(){
 
 Route::group(['prefix'=>'admin','middleware'=>'adminsOnly'],function(){
 	Route::get('index',function(){
-		return view('admin.index');
+		return redirect()->route('dashBoard_view');
 	})->name('admin_view');
 	//Route::resource('users','Admin\UsersController');
 	Route::get('usersList','Admin\UsersController@index')->name('usersList_view');
@@ -124,7 +124,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminsOnly'],function(){
 	Route::get('deleteProducts/{id}','Admin\ProductsController@destroy')->name('deleteProducts');
 	Route::get('search','Admin\SearchController@index')->name('searchResults_view');
 	Route::get('search','Admin\SearchController@search')->name('searchResults');
-	Route::get('dashBoard','Admin\DashboardController@statistics')->name('dashBoard_view');
+	Route::get('dashboard','Admin\DashboardController@statistics')->name('dashBoard_view');
 
 	//Route::resource('posts','Admin\PostsController');
 	Route::get('postsList','Admin\PostsController@index')->name('postsList_view');
