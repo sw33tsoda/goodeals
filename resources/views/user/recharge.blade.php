@@ -154,11 +154,7 @@
                                 <input type="text" class="form-control" placeholder="Số điện thoại" value="" />
                             </div>
                             <div class="form-group countries">
-                                <script>
-                                	$(document).ready(function(){
-                                		$('.countries').load('https://raw.githubusercontent.com/sw33tsoda/html-country-dropdown-list/master/countries.html');
-                                	});
-                                </script>
+                                @include('countries-list')
                             </div>
                         </div>
                         <div class="col-md-6">

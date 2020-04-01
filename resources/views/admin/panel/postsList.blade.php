@@ -68,7 +68,7 @@
                      <div id="ajax_theComments_{{$show->id}}" style="margin-top: 10px;">
                         <br>
                      </div>
-                     <a onclick="loadMoreComments({{$show->id}})" style="cursor: pointer;margin-top: 10px;">Xem đầy đủ</a>
+                     <a onclick="loadMoreComments({{$show->id}})" style="cursor: pointer;margin-top: 10px;">Hiện thêm</a>
                   </div>
                </div>
             </div>
@@ -132,15 +132,27 @@
   }
 
   function deleteComment(id,post_id) {
+    let timeOut = 250;
     let deleteComment = $('#deleteComments_'+id);
     let thisComment = $('#ajax_thisComment_'+id);
     let theComments = $('#ajax_theComments_'+post_id);
-    thisComment.fadeOut(500);
-    setTimeout(function(){ 
-      thisComment.load("{{route('deleteComments')}}?id="+id);
-      thisComment.popup(); //anti glitch
-      theComments.load("{{route('getComments')}}?id="+post_id);
-    }, 500);    
+    let max_comments = $('.max_comments_'+post_id);
+    $.ajax({
+      type: "GET",
+      url: "{{route('deleteComments')}}?id="+id,
+      dataType : "json",
+      success: function(response) {
+        if (response.isDone) {
+          thisComment.fadeOut(timeOut);
+          setTimeout(function(){
+            theComments.load("{{route('getComments')}}?id="+post_id+"&number_of_comments="+max_comments.val());
+          }, timeOut);   
+        }
+      },
+      error: function(error) {
+        alert('Xóa bình luận thất bại');
+      }
+    });
   }
 </script>
 <br>

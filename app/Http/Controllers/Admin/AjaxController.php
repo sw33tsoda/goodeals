@@ -23,6 +23,7 @@ class AjaxController extends Controller {
 
     public function deleteComments(Request $request) {
         $comment_id = $request->id;
-        Comment::where('id',$comment_id)->delete();
+        $delete_comment = Comment::where('id',$comment_id)->delete();
+        return response()->json(['isDone'=>$delete_comment]);
     }
 }

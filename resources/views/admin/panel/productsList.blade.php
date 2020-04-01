@@ -17,6 +17,7 @@
       <th class="text-center" scope="col">Nhà phát hành</th>
       <th class="text-center" scope="col">Nền tảng</th>
       <th class="text-center" scope="col">Giá thành</th>
+      <th class="text-center" scope="col">Ngày đăng</th>
       <th class="text-center" scope="col">Hành động</th>
     </tr>
   </thead>
@@ -29,6 +30,7 @@
       <td class="align-middle">{{$show->publisher}}</td>
       <td class="align-middle">{{$show->platform_name}}</td>
       <td class="align-middle">{{$show->price}}</td>
+      <td class="align-middle">{{\Carbon\Carbon::parse($show->created_at)->format('h:i A (d/m/Y)')}}</td>
       <td class="align-middle"><a class="btn btn-success-custom" data-toggle="modal" data-target="#fullInfo_{{$show->id}}" href="#">Xem đầy đủ</a> <a class="btn btn-warning-custom" href="{{url('/admin/editProducts/'.$show->id)}}">Sửa</a> <a class="btn btn-danger-custom" data-toggle="modal" data-target="#modal_{{$show->id}}" href="#">Xóa</a>
         <!-- DELETE MODAL -->
           <div class="modal" id="modal_{{$show->id}}" role="dialog">
