@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Str;
-$DATABASE_URL=parse_url('DATABASE_URL');
 $host = $port = $username = $password = $database = '';
 if(getenv("DATABASE_URL")){
     $url = parse_url(getenv("DATABASE_URL"));
@@ -72,11 +71,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => $DATABASE_URL['host'],
-            'port' => $DATABASE_URL['port'],
-            'database' => ltrim($DATABASE_URL['path'],'/'),
-            'username' => $DATABASE_URL['user'],
-            'password' => $DATABASE_URL['pass'],
+            'host' => $host,
+            'port' => $port,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
