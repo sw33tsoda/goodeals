@@ -71,7 +71,7 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => $host,
-            'port' => $database,
+            'port' => env('DB_PORT', '5432'),
             'database' => $database,
             'username' => $username,
             'password' => $password,
@@ -81,6 +81,17 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
+
+        'pgsql' => array(
+            'driver'   => 'pgsql',
+            'host'     => $host,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'schema'   => 'public',
+        ),
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
