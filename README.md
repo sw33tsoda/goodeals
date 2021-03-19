@@ -1,6 +1,7 @@
 GooDeals - Digital Game store
 
 Status : FINISHED
+
 Technologies used : Laravel + MySQL, Jquery
 
 USER
